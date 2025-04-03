@@ -53,3 +53,6 @@ dkms.conf
 
 #Miscellaneous
 en.subject.pdf
+philo/philo
+build/
+.vscode/
