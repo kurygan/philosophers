@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:53:25 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/02 20:55:48 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/04 02:14:02 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,10 @@ void	error(char *str)
 {
 	ft_putstr_fd(str, 2, true);
 	exit(1);
+}
+
+void	freeall(t_global *dinner)
+{
+	free(dinner->philo);
+	dinner->philo = NULL;
 }

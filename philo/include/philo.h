@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:51 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/02 21:17:06 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/04 02:14:13 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define ARGS_N_VALID "Error: Put Valid Arguments"
 # define OVERFLOW_ERR "Error: Numbers are too Big for this One"
 # define POS_ERROR "Error: Put Positive Numbers only"
+# define ALLOC_F "Error: Malloc Failed"
 
 typedef struct s_global
 {
-	bool			alive;
 	int				philo_numbers;
 	int				time_to_die;
 	int				time_to_eat;
@@ -40,11 +40,14 @@ typedef struct s_global
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_meal;
 	pthread_mutex_t	*forks;
+	struct s_philo	*philo;
 }	t_global;
 
 typedef struct s_philo
 {
 	int				philo_id;
+	bool			alive;
+	int				time_eaten;
 	pthread_t		thread;
 	size_t			last_meal_time;
 	pthread_mutex_t	*l_fork;
@@ -56,5 +59,7 @@ void	parse_args(int ac, char **av, t_global *dinner);
 void	error(char *str);
 void	ft_putstr_fd(char *str, int fd, bool endl);
 int		ft_atoi(char *str);
+void	philo_init(t_global *dinner);
+void	freeall(t_global *dinner);
 
 #endif
