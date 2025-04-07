@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:47 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/04 02:12:21 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/07 23:05:11 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	print_debug(t_global *dinner)
 	while (i < dinner->philo_numbers)
 	{
 		printf("Philo Adress: %p\n", &temp[i]);
+		printf("Philo Thread: %p\n", &temp[i].thread);
 		printf("Philo ID: %d\n", temp[i].philo_id);
 		printf("Philo Alive: %d\n", temp[i].alive);
 		printf("-----\n");

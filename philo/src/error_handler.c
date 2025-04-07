@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:53:25 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/04 02:14:02 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/07 23:02:14 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	error(char *str)
 
 void	freeall(t_global *dinner)
 {
+	int i;
+
+	i = 0;
+	while(i < dinner->philo_numbers)
+	{
+		pthread_join(dinner->philo[i].thread, NULL);
+		i++;
+	}
 	free(dinner->philo);
 	dinner->philo = NULL;
 }

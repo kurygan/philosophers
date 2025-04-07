@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:46:22 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/04 02:10:41 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/07 23:03:42 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	parse_args(int ac, char **av, t_global *dinner)
 	if (!dinner->philo)
 		return (error(ALLOC_F));
 	philo_init(dinner);
+	thread_init(dinner);
 }
 
 void	philo_init(t_global *dinner)
@@ -48,4 +49,24 @@ void	philo_init(t_global *dinner)
 		temp[i].alive = true;
 		i++;
 	}
+}
+
+void	thread_init(t_global *dinner)
+{
+	int	i;
+
+	i = 0;
+	while (i < dinner->philo_numbers)
+	{
+		if (pthread_create(&dinner->philo[i].thread, NULL, temp, &i) != 0)
+			return (freeall(dinner), error(THREAD_E));
+		i++;
+	}
+}
+
+void	*temp(void *arg)
+{
+	int *i = (int *)arg;
+	printf("Thread number %d created\n", *i);
+	return NULL;
 }
