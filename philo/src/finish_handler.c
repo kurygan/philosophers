@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   finish_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:53:25 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/07 23:02:14 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:39:31 by tylerlover9      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ void	error(char *str)
 
 void	freeall(t_global *dinner)
 {
-	int i;
+	free(dinner->philo);
+	dinner->philo = NULL;
+}
+
+void	thread_join(t_global *dinner)
+{
+	int	i;
 
 	i = 0;
-	while(i < dinner->philo_numbers)
+	while (i < dinner->philo_numbers)
 	{
 		pthread_join(dinner->philo[i].thread, NULL);
 		i++;
 	}
-	free(dinner->philo);
-	dinner->philo = NULL;
 }

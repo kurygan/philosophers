@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:51 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/07 23:02:37 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:39:55 by tylerlover9      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_global
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_meal;
 	pthread_mutex_t	*forks;
+	pthread_t		monitor;
 	struct s_philo	*philo;
 }	t_global;
 
@@ -63,6 +64,7 @@ int		ft_atoi(char *str);
 void	philo_init(t_global *dinner);
 void	freeall(t_global *dinner);
 void	thread_init(t_global *dinner);
-void	*temp(void *arg);
+void	thread_join(t_global *dinner);
+void	*temp();
 
 #endif

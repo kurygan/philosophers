@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:46:22 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/07 23:03:42 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:38:01 by tylerlover9      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,20 @@ void	thread_init(t_global *dinner)
 	int	i;
 
 	i = 0;
+	if (pthread_create(&dinner->monitor, NULL, temp, NULL))
+		return (freeall(dinner), error(THREAD_E));
+	printf("Monitor Thread Created\n");
 	while (i < dinner->philo_numbers)
 	{
-		if (pthread_create(&dinner->philo[i].thread, NULL, temp, &i) != 0)
+		if (pthread_create(&dinner->philo[i].thread, NULL, temp, NULL))
 			return (freeall(dinner), error(THREAD_E));
+		printf("Thread Philo ID: %d Created\n", i + 1);
 		i++;
 	}
+	printf("-----\n");
 }
 
-void	*temp(void *arg)
+void	*temp()
 {
-	int *i = (int *)arg;
-	printf("Thread number %d created\n", *i);
 	return NULL;
 }

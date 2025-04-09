@@ -2,7 +2,7 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror -g3 -pthread
 
 SRCS = philo.c utils.c\
-	   parsing.c error_handler.c
+	   parsing.c finish_handler.c
 
 OBJS = $(SRCS:.c=.o)
 SRCS_DIR = src/
