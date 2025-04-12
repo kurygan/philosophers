@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:47 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/09 20:43:23 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/11 23:56:10 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ void	print_debug(t_global *dinner)
 	printf("Time to Eat: %d\n", dinner->time_to_eat);
 	printf("Time to Sleep: %d\n", dinner->time_to_sleep);
 	printf("Max Meals: %d\n", dinner->max_meals);
-	printf("Monitor Thread: %p\n-----\n", &dinner->monitor);
+	printf("Monitor Thread: %p\n-----\n", &dinner->reaper);
 	while (i < dinner->philo_numbers)
 	{
 		printf("Philo Adress: %p\n", &temp[i]);
 		printf("Philo Thread: %p\n", &temp[i].thread);
 		printf("Philo ID: %d\n", temp[i].philo_id);
-		printf("Philo Alive: %d\n", temp[i].alive);
 		printf("-----\n");
 		i++;
 	}

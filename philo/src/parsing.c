@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:46:22 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/09 20:38:01 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/12 00:57:47 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	parse_args(int ac, char **av, t_global *dinner)
 	dinner->philo = malloc(dinner->philo_numbers * sizeof(t_philo));
 	if (!dinner->philo)
 		return (error(ALLOC_F));
+	dinner->alive = true;
 	philo_init(dinner);
+	mutex_init(dinner);
 	thread_init(dinner);
 }
 
@@ -41,14 +43,26 @@ void	philo_init(t_global *dinner)
 
 	temp = dinner->philo;
 	i = 0;
+	if (pthread_mutex_init(&dinner->lock_dead, NULL))
+		return (freeall(dinner), error(MUTEX_E));
+	if (pthread_mutex_init(&dinner->lock_meal, NULL))
+		return (mutex_destroyer(dinner, i), freeall(dinner), error(MUTEX_E));
+	if (pthread_mutex_init(&dinner->lock_write, NULL))
+		return (mutex_destroyer(dinner, i), freeall(dinner), error(MUTEX_E));
 	while (i < dinner->philo_numbers)
 	{
 		memset(&temp[i], 0, sizeof(t_philo));
+		if (pthread_mutex_init(&temp->fork, NULL))
+			return (mutex_destroyer(dinner, i), freeall(dinner), error(MUTEX_E));
 		temp[i].philo_id = i + 1;
 		temp[i].dinner  = dinner;
-		temp[i].alive = true;
 		i++;
 	}
+}
+
+void	mutex_init(t_global *dinner)
+{
+	
 }
 
 void	thread_init(t_global *dinner)
@@ -56,20 +70,15 @@ void	thread_init(t_global *dinner)
 	int	i;
 
 	i = 0;
-	if (pthread_create(&dinner->monitor, NULL, temp, NULL))
+	if (pthread_create(&dinner->reaper, NULL, temp, NULL))
 		return (freeall(dinner), error(THREAD_E));
 	printf("Monitor Thread Created\n");
 	while (i < dinner->philo_numbers)
 	{
-		if (pthread_create(&dinner->philo[i].thread, NULL, temp, NULL))
+		if (pthread_create(&dinner->philo[i].thread, NULL, &philo_routine, NULL))
 			return (freeall(dinner), error(THREAD_E));
 		printf("Thread Philo ID: %d Created\n", i + 1);
 		i++;
 	}
 	printf("-----\n");
-}
-
-void	*temp()
-{
-	return NULL;
 }

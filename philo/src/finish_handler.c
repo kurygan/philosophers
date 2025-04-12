@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:53:25 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/09 20:39:31 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/12 00:06:03 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,16 @@ void	thread_join(t_global *dinner)
 		pthread_join(dinner->philo[i].thread, NULL);
 		i++;
 	}
+}
+
+void	mutex_destroyer(t_global *dinner, int i)
+{
+	if (&dinner->lock_dead)
+		pthread_mutex_destroy(&dinner->lock_dead);
+	if (&dinner->lock_meal)
+		pthread_mutex_destroy(&dinner->lock_meal);
+	if (&dinner->lock_write)
+		pthread_mutex_destroy(&dinner->lock_write);
+	while (i)
+		pthread_mutex_destroy(&dinner->philo[--i].fork);
 }

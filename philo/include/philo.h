@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:51 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/09 20:39:55 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/12 00:57:59 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
@@ -28,6 +27,7 @@
 # define POS_ERROR "Error: Put Positive Numbers only"
 # define ALLOC_F "Error: Malloc Failed"
 # define THREAD_E "Error: Thread Creation Failed"
+# define MUTEX_E "Error: Mutex Creation Failed"
 
 typedef struct s_global
 {
@@ -36,24 +36,23 @@ typedef struct s_global
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_meals;
+	bool			alive;
 	size_t			time_started;
 	pthread_mutex_t	lock_write;
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_meal;
-	pthread_mutex_t	*forks;
-	pthread_t		monitor;
+	pthread_t		reaper;
 	struct s_philo	*philo;
 }	t_global;
 
 typedef struct s_philo
 {
 	int				philo_id;
-	bool			alive;
-	int				time_eaten;
+	int				t_eaten;
 	pthread_t		thread;
-	size_t			last_meal_time;
-	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*r_fork;
+	unsigned long	last_meal_time;
+	pthread_mutex_t	fork;
+	pthread_mutex_t lock_t_eaten;
 	t_global		*dinner;
 }	t_philo;
 
@@ -65,6 +64,7 @@ void	philo_init(t_global *dinner);
 void	freeall(t_global *dinner);
 void	thread_init(t_global *dinner);
 void	thread_join(t_global *dinner);
-void	*temp();
+int		get_time_in_usec(unsigned long *time);
+void	*philo_routine(void *arg);
 
 #endif
