@@ -1,9 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3 -pthread
 
-SRCS = philo.c utils.c\
-	   parsing.c finish_handler.c \
-	   routine.c
+SRCS = main.c
 
 OBJS = $(SRCS:.c=.o)
 SRCS_DIR = src/
@@ -11,7 +9,7 @@ OBJS_DIR = build/
 SRCS_PREF = $(addprefix $(SRCS_DIR), $(SRCS))
 OBJS_PREF = $(addprefix $(OBJS_DIR), $(OBJS))
 
-NAME = philo
+NAME = 
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
