@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:53:25 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/12 00:06:03 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/15 00:07:05 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	thread_join(t_global *dinner)
 	}
 }
 
-void	mutex_destroyer(t_global *dinner, int i)
+void	mutex_dest(t_global *dinner, int i)
 {
-	if (&dinner->lock_dead)
+	if (i < -1)
 		pthread_mutex_destroy(&dinner->lock_dead);
-	if (&dinner->lock_meal)
+	if (i < 0)
 		pthread_mutex_destroy(&dinner->lock_meal);
-	if (&dinner->lock_write)
+	if (i >= 0)
 		pthread_mutex_destroy(&dinner->lock_write);
 	while (i)
 		pthread_mutex_destroy(&dinner->philo[--i].fork);

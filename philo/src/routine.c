@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 04:12:02 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/12 00:58:09 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/15 00:18:42 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@ void	*philo_routine(void *arg)
 {
 	t_philo	*philo = (t_philo *)arg;
 
-	printf("Philosopher ID %d is running", philo->philo_id);
+	printf("Philosopher ID %d is running\n", philo->philo_id);
 	return (NULL);
 }
 
 void	*monitor_routine(void *arg)
 {
-	
-}
+	t_global *dinner = (t_global *)arg;
 
-void	*reaper_routine(void *arg)
-{
-
+	printf("Monitor Thread %p is running\n", &dinner->monitor);
+	return (NULL);
 }

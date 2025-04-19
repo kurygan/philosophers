@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:46:47 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/11 04:10:47 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/19 02:44:04 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ int	ft_atoi(char *str)
 
 	sign = 1;
 	nbr = 0;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			sign = -sign;
+	if (*str == '+' && str[1])
 		str++;
-	}
 	while (*str >= '0' && *str <= '9')
 	{
 		index = *str - '0';
@@ -33,16 +29,16 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	if (*str)
-		error(ARGS_N_VALID);
+		return(error(ARGS_N_VALID), 0);
 	nbr = nbr * sign;
-	if (nbr > INT_MAX || nbr < INT_MIN)
+	if (nbr > INT_MAX)
 		error(OVERFLOW_ERR);
 	return ((int)nbr);
 }
 
-int	get_time_in_usec(unsigned long *time)
+unsigned long	get_time(void)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
-	*time = tv.tv_sec * 1000000 + tv.tv_usec;
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }

@@ -6,20 +6,21 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:51 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/12 00:57:59 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/15 00:37:257 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
+# include <limits.h>
 # include <pthread.h>
 # include <stdbool.h>
-# include <limits.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/time.h>
+# include <unistd.h>
 
 # define ARGS_NB_ERR "Error: Put a Valid Number of Arguments"
 # define ARGS_N_VALID "Error: Put Valid Arguments"
@@ -41,9 +42,9 @@ typedef struct s_global
 	pthread_mutex_t	lock_write;
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_meal;
-	pthread_t		reaper;
+	pthread_t		monitor;
 	struct s_philo	*philo;
-}	t_global;
+}					t_global;
 
 typedef struct s_philo
 {
@@ -52,19 +53,22 @@ typedef struct s_philo
 	pthread_t		thread;
 	unsigned long	last_meal_time;
 	pthread_mutex_t	fork;
-	pthread_mutex_t lock_t_eaten;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	lock_t_eaten;
 	t_global		*dinner;
-}	t_philo;
+}					t_philo;
 
-void	parse_args(int ac, char **av, t_global *dinner);
-void	error(char *str);
-void	ft_putstr_fd(char *str, int fd, bool endl);
-int		ft_atoi(char *str);
-void	philo_init(t_global *dinner);
-void	freeall(t_global *dinner);
-void	thread_init(t_global *dinner);
-void	thread_join(t_global *dinner);
-int		get_time_in_usec(unsigned long *time);
-void	*philo_routine(void *arg);
+bool				parse_args(int ac, char **av, t_global *dinner);
+void				error(char *str);
+void				ft_putstr_fd(char *str, int fd, bool endl);
+int					ft_atoi(char *str);
+bool				philo_init(t_global *dinner);
+void				freeall(t_global *dinner);
+bool				thread_init(t_global *dinner);
+void				thread_join(t_global *dinner);
+unsigned long		get_time(void);
+void				*philo_routine(void *arg);
+void				*monitor_routine(void *arg);
+void				mutex_dest(t_global *dinner, int i);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:46:22 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/12 00:57:47 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/19 02:44:42 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	parse_args(int ac, char **av, t_global *dinner)
+bool	parse_args(int ac, char **av, t_global *dinner)
 {
 	dinner->philo_numbers = ft_atoi(av[1]);
 	dinner->time_to_die = ft_atoi(av[2]);
@@ -21,22 +21,22 @@ void	parse_args(int ac, char **av, t_global *dinner)
 	if (ac == 6)
 	{
 		dinner->max_meals = ft_atoi(av[5]);
-		if (dinner->max_meals < 0)
-			error(POS_ERROR);
+		if (dinner->max_meals == 0)
+			return (error(POS_ERROR), false);
 	}
-	if (dinner->philo_numbers < 1 || dinner->time_to_die < 0
-		|| dinner->time_to_eat < 0 || dinner->time_to_sleep < 0)
-		error(POS_ERROR);
+	if (dinner->philo_numbers <= 1 || dinner->time_to_die == 0
+		|| dinner->time_to_eat == 0 || dinner->time_to_sleep == 0)
+		return (error(POS_ERROR), false);
 	dinner->philo = malloc(dinner->philo_numbers * sizeof(t_philo));
 	if (!dinner->philo)
-		return (error(ALLOC_F));
+		return (error(ALLOC_F), false);
 	dinner->alive = true;
 	philo_init(dinner);
-	mutex_init(dinner);
 	thread_init(dinner);
+	return (true);
 }
 
-void	philo_init(t_global *dinner)
+bool	philo_init(t_global *dinner)
 {
 	int	i;
 	t_philo *temp;
@@ -44,41 +44,41 @@ void	philo_init(t_global *dinner)
 	temp = dinner->philo;
 	i = 0;
 	if (pthread_mutex_init(&dinner->lock_dead, NULL))
-		return (freeall(dinner), error(MUTEX_E));
+		return (error(MUTEX_E), false);
 	if (pthread_mutex_init(&dinner->lock_meal, NULL))
-		return (mutex_destroyer(dinner, i), freeall(dinner), error(MUTEX_E));
+		return (error(MUTEX_E), false);
 	if (pthread_mutex_init(&dinner->lock_write, NULL))
-		return (mutex_destroyer(dinner, i), freeall(dinner), error(MUTEX_E));
+		return (error(MUTEX_E), false);
 	while (i < dinner->philo_numbers)
 	{
 		memset(&temp[i], 0, sizeof(t_philo));
 		if (pthread_mutex_init(&temp->fork, NULL))
-			return (mutex_destroyer(dinner, i), freeall(dinner), error(MUTEX_E));
+			return (error(MUTEX_E), false);
+		if (i > 0)
+			temp[i].l_fork = &temp[i - 1].fork;
 		temp[i].philo_id = i + 1;
 		temp[i].dinner  = dinner;
 		i++;
 	}
+	temp[0].l_fork = &temp[i - 1].fork;
+	return (true);
 }
 
-void	mutex_init(t_global *dinner)
-{
-	
-}
-
-void	thread_init(t_global *dinner)
+bool	thread_init(t_global *dinner)
 {
 	int	i;
 
 	i = 0;
-	if (pthread_create(&dinner->reaper, NULL, temp, NULL))
-		return (freeall(dinner), error(THREAD_E));
+	if (pthread_create(&dinner->monitor, NULL, &monitor_routine, dinner))
+		return (error(THREAD_E), false);
 	printf("Monitor Thread Created\n");
 	while (i < dinner->philo_numbers)
 	{
-		if (pthread_create(&dinner->philo[i].thread, NULL, &philo_routine, NULL))
-			return (freeall(dinner), error(THREAD_E));
-		printf("Thread Philo ID: %d Created\n", i + 1);
+		if (pthread_create(&dinner->philo[i].thread, NULL,
+				&philo_routine, &dinner->philo))
+			return (error(THREAD_E), false);
 		i++;
 	}
 	printf("-----\n");
+	return (true);
 }

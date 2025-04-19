@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:35:47 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/11 23:56:10 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/19 02:46:55 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_debug(t_global *dinner)
 	printf("Time to Eat: %d\n", dinner->time_to_eat);
 	printf("Time to Sleep: %d\n", dinner->time_to_sleep);
 	printf("Max Meals: %d\n", dinner->max_meals);
-	printf("Monitor Thread: %p\n-----\n", &dinner->reaper);
+	printf("Monitor Thread: %p\n-----\n", &dinner->monitor);
 	while (i < dinner->philo_numbers)
 	{
 		printf("Philo Adress: %p\n", &temp[i]);
@@ -39,12 +39,9 @@ int	main(int ac, char **av)
 	if (ac != 5 && ac != 6)
 		return (error(ARGS_N_VALID), 1);
 	memset(&dinner, 0, sizeof(t_global));
-	parse_args(ac, av, &dinner);
-	/*
-		Innit Threads
-		Innit Mutex
-	*/
-	print_debug(&dinner);
-
+	if (parse_args(ac, av, &dinner)){
+		print_debug(&dinner);
+	}
+	thread_join(&dinner);
 	freeall(&dinner);
 }
