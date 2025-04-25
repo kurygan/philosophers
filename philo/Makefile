@@ -1,8 +1,8 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3 -pthread
 
-SRCS = main.c \
-	   error.c
+SRCS = main.c error.c utils.c \
+	   parsing.c
 
 OBJS = $(SRCS:.c=.o)
 SRCS_DIR = src/

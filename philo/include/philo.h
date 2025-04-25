@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkettab <mkettab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:08 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/19 04:30:09 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/24 21:51:45 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,24 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
+# include <limits.h>
+# include <string.h>
 
 // Macros
 // -----------------------------------------------------------------------------
 
 # define ARG_ERROR "./philo \"time_to_die\" \"time_to_eat\" \"time_to_sleep\" \
 [number_of_times_each_philosopher_must_eat]"
+# define NUM_ERROR "Put only numbers between 1 and 2147483647"
+# define MALLOC_ERR "Failed to Allocate Memory"
+# define MUTEX_ERR "Failed to init mutex"
+# define MAX_PHILO 200
 
 // Structures
 // -----------------------------------------------------------------------------
+
+typedef struct s_philo	t_philo;
 
 typedef struct s_global
 {
@@ -35,12 +44,31 @@ typedef struct s_global
 	int				time_to_die;
 	int				time_to_sleep;
 	int				max_meals;
+	bool			dead;
 	pthread_t		grim_reaper;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	t_philo			*philo;
 }					t_global;
 
-// Errors
+typedef struct s_philo
+{
+	unsigned int	id;
+	pthread_t		thread;
+	unsigned long	last_meal;
+	t_global		*dinner;
+	pthread_mutex_t	r_fork;
+	pthread_mutex_t	*l_fork;
+}	t_philo;
+
+// Functions
 // -----------------------------------------------------------------------------
 
-int					error_failure(char *error_phrase);
+int	error_failure(char *error_phrase, t_global *dinner, int nb);
+int			ft_atoi(char *str);
+bool		valid_args(int ac, char **av);
+t_global*	dinner_init(int ac, char **av);
+void		*error_null(char *str, t_global *dinner);
 
 #endif
