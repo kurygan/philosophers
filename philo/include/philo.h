@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:08 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/24 21:51:45 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/30 08:58:50 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <string.h>
+# include <sys/time.h>
 
 // Macros
 // -----------------------------------------------------------------------------
@@ -56,11 +57,22 @@ typedef struct s_philo
 {
 	unsigned int	id;
 	pthread_t		thread;
+	pthread_mutex_t	meal_lock;
 	unsigned long	last_meal;
+	unsigned int	time_eat;
 	t_global		*dinner;
 	pthread_mutex_t	r_fork;
 	pthread_mutex_t	*l_fork;
 }	t_philo;
+
+typedef enum s_status
+{
+	DIED,
+	SLEEPING,
+	EATING,
+	THINKING,
+	GOT_FORK
+}	t_status;
 
 // Functions
 // -----------------------------------------------------------------------------
@@ -70,5 +82,9 @@ int			ft_atoi(char *str);
 bool		valid_args(int ac, char **av);
 t_global*	dinner_init(int ac, char **av);
 void		*error_null(char *str, t_global *dinner);
+bool	has_died(t_global *dinner);
+void	set_delay(unsigned long time);
+void	get_status(t_philo *philo, t_status stage);
+void	better_sleep(t_global *dinner, unsigned int sleep_time);
 
 #endif

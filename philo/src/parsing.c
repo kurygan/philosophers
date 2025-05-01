@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:08:02 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/24 21:52:05 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/30 08:59:14 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ t_philo*	init_philo(t_global *dinner)
 		memset(&philo[i], 0, sizeof(t_philo));
 		philo[i].id = i + 1;
 		philo[i].dinner = dinner;
+		philo[i].time_eat = 0;
 		if (pthread_mutex_init(&philo[i].r_fork, NULL))
+			return (error_null(MUTEX_ERR, dinner));
+		if (pthread_mutex_init(&philo[i].meal_lock, NULL))
 			return (error_null(MUTEX_ERR, dinner));
 		if (i > 0)
 			philo[i].l_fork = &philo[i - 1].r_fork;

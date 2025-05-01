@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:02 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/24 21:52:38 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/04/26 19:00:32 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ int	main(int ac, char **av)
 	dinner = dinner_init(ac, av);
 	if (!dinner)
 		return (1);
+	if (!start_simulation(dinner))
+		return (1);
+	stop_simulation(dinner);
 	return (0);
 }

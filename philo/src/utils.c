@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tylerlover911 <tylerlover911@student.42    +#+  +:+       +#+        */
+/*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:10:12 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/24 15:39:32 by tylerlover9      ###   ########.fr       */
+/*   Updated: 2025/04/30 08:26:42 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,30 @@ int	ft_atoi(char *str)
 	if (*str || nbr > INT_MAX)
 		return (0);
 	return ((int)nbr);
+}
+
+unsigned long	get_time(void)
+{
+	struct timeval	tv;
+	
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+void	better_sleep(t_global *dinner, unsigned int sleep_time)
+{
+	unsigned long	wake_up_t;
+	
+	wake_up_t = get_time() + sleep_time;
+	while (get_time() < wake_up_t)
+	{
+		if (has_died(dinner))
+			break ;
+		usleep(100);
+	}
+}
+
+void	set_delay(unsigned long time)
+{
+	while (get_time() < time)
+		continue ;
 }

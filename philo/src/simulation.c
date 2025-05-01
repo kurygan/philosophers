@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/19 04:17:58 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/30 08:24:51 by mkettab          ###   ########.fr       */
+/*   Created: 2025/04/26 19:15:15 by mkettab           #+#    #+#             */
+/*   Updated: 2025/04/26 19:22:13 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	error_failure(char *error_phrase, t_global *dinner, int nb)
+bool	start_simulation(t_global *dinner)
 {
-	if (dinner->philo)
-		free(dinner->philo);
-	if (dinner)
+	int i;
+
+	dinner->time_started = get_time() + (dinner->philo_nb * 50);
+	i = 0;
+	while (i < dinner->philo_nb)
 	{
-		free(dinner);
-		dinner = NULL;
+		
 	}
-	printf("Error: %s\n", error_phrase);
-	return (nb);
 }
 
-void	*error_null(char *error_phrase, t_global *dinner)
+void	stop_simulation(t_global *dinner)
 {
-	if (dinner->philo)
-		free(dinner->philo);
-	if (dinner)
+	
+}
+
+bool	has_died(t_global *dinner)
+{
+	pthread_mutex_lock(&dinner->dead_lock);
+	if (dinner->dead = true)
 	{
-		free(dinner);
-		dinner = NULL;
+		pthread_mutex_unlock(&dinner->dead_lock);
+		return (true);
 	}
-	printf("Error: %s\n", error_phrase);
-	return (NULL);
+	pthread_mutex_unlock(&dinner->dead_lock);
+	return (false);
 }
