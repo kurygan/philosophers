@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:08:02 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/30 08:59:14 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:55:25 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	valid_args(int ac, char **av)
 t_philo*	init_philo(t_global *dinner)
 {
 	t_philo*		philo;
-	unsigned int	i;
+	int	i;
 
 	philo = malloc(sizeof(t_philo) * dinner->philo_nb);
 	if (!philo)

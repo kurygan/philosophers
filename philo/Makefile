@@ -2,7 +2,9 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror -g3 -pthread
 
 SRCS = main.c error.c utils.c \
-	   parsing.c
+	   parsing.c \
+	   grim_reaper.c philo.c \
+	   print.c simulation.c
 
 OBJS = $(SRCS:.c=.o)
 SRCS_DIR = src/

@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:02 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/26 19:00:32 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:55:09 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int ac, char **av)
 		return (error_failure(ARG_ERROR, NULL, 1));
 	if (!valid_args(ac, av))
 		return (error_failure(NUM_ERROR, NULL, 1));
-	memset(dinner, 0, sizeof(t_global));
 	dinner = dinner_init(ac, av);
 	if (!dinner)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:15:15 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/26 19:22:13 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:59:38 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,32 @@ bool	start_simulation(t_global *dinner)
 	i = 0;
 	while (i < dinner->philo_nb)
 	{
-		
+		if (pthread_create(&dinner->philo[i].thread, NULL, &r_philo,
+				&dinner->philo[i]))
+			return (error_failure(THREAD_ERR, dinner, 0));
+		i++;
 	}
+	return (true);
 }
 
 void	stop_simulation(t_global *dinner)
 {
-	
+	int	i;
+
+	i = 0;
+	while (i < dinner->philo_nb)
+	{
+		pthread_join(dinner->philo[i].thread, NULL);
+		i++;
+	}
+	destroy_mutexes(dinner);
+	error_failure(NULL, dinner, 0);
 }
 
 bool	has_died(t_global *dinner)
 {
 	pthread_mutex_lock(&dinner->dead_lock);
-	if (dinner->dead = true)
+	if (dinner->dead == true)
 	{
 		pthread_mutex_unlock(&dinner->dead_lock);
 		return (true);

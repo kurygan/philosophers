@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:17:58 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/30 08:24:51 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:53:49 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ void	*error_null(char *error_phrase, t_global *dinner)
 	}
 	printf("Error: %s\n", error_phrase);
 	return (NULL);
+}
+
+void	destroy_mutexes(t_global* dinner)
+{
+	int i;
+
+	i = 0;
+	while (i < dinner->philo_nb)
+	{
+		pthread_mutex_destroy(&dinner->philo[i].r_fork);
+		i++;
+	}
+	pthread_mutex_destroy(&dinner->dead_lock);
+	pthread_mutex_destroy(&dinner->meal_lock);
+	pthread_mutex_destroy(&dinner->dead_lock);
 }

@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:08 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/30 08:58:50 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:59:28 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define NUM_ERROR "Put only numbers between 1 and 2147483647"
 # define MALLOC_ERR "Failed to Allocate Memory"
 # define MUTEX_ERR "Failed to init mutex"
+# define THREAD_ERR "Failed to init thread"
 # define MAX_PHILO 200
 
 // Structures
@@ -86,5 +87,10 @@ bool	has_died(t_global *dinner);
 void	set_delay(unsigned long time);
 void	get_status(t_philo *philo, t_status stage);
 void	better_sleep(t_global *dinner, unsigned int sleep_time);
+void*	r_philo(void* arg);
+bool	start_simulation(t_global *dinner);
+void	stop_simulation(t_global *dinner);
+unsigned long	get_time(void);
+void	destroy_mutexes(t_global* dinner);
 
 #endif

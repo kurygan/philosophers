@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:23:46 by mkettab           #+#    #+#             */
-/*   Updated: 2025/04/30 09:08:57 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:58:36 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	think_r(t_philo *philo, bool print)
 		time_to_think = 200;
 	if (print == true)
 		get_status(philo, THINKING);
-	better_sleep(&philo->dinner, (unsigned long)time_to_think);
+	better_sleep(philo->dinner, (unsigned long)time_to_think);
 }
 
 void	take_fork_order(t_philo *philo)
@@ -84,7 +84,7 @@ void*	r_philo(void* arg)
 	philo = (t_philo*)arg;
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_meal = philo->dinner->time_started;
-	pthread_mutex_unlock(&philo->last_meal);
+	pthread_mutex_unlock(&philo->meal_lock);
 	set_delay(philo->dinner->time_started);
 	if (philo->dinner->time_to_die == 0)
 		return (NULL);
