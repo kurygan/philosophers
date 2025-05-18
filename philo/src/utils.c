@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:10:12 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/04/30 08:26:42 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/06 01:36:26 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ unsigned long	get_time(void)
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
+
 void	better_sleep(t_global *dinner, unsigned int sleep_time)
 {
 	unsigned long	wake_up_t;

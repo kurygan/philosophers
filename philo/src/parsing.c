@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:08:02 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/05/05 21:55:25 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/07 00:10:02 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_philo*	init_philo(t_global *dinner)
 			return (error_null(MUTEX_ERR, dinner));
 		if (i > 0)
 			philo[i].l_fork = &philo[i - 1].r_fork;
+		i++;
 	}
 	if (dinner->philo_nb > 1)
 		philo[0].l_fork = &philo[i - 1].r_fork;
@@ -53,8 +54,6 @@ t_philo*	init_philo(t_global *dinner)
 bool	init_global_mutex(t_global *dinner)
 {
 	if (pthread_mutex_init(&dinner->dead_lock, NULL))
-		return (error_failure(MUTEX_ERR, dinner, 0));
-	if (pthread_mutex_init(&dinner->meal_lock, NULL))
 		return (error_failure(MUTEX_ERR, dinner, 0));
 	if (pthread_mutex_init(&dinner->write_lock, NULL))
 		return (error_failure(MUTEX_ERR, dinner, 0));

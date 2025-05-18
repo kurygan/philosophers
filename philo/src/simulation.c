@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:15:15 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/05 21:59:38 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/07 00:25:05 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ bool	start_simulation(t_global *dinner)
 			return (error_failure(THREAD_ERR, dinner, 0));
 		i++;
 	}
+	if (dinner->philo_nb > 1)
+		if (pthread_create(&dinner->grim_reaper, NULL, &grim_reaper, dinner))
+			return (error_failure(THREAD_ERR, dinner, 0));
 	return (true);
 }
 
@@ -38,8 +41,11 @@ void	stop_simulation(t_global *dinner)
 		pthread_join(dinner->philo[i].thread, NULL);
 		i++;
 	}
+	if (dinner->philo_nb > 1)
+		pthread_join(dinner->grim_reaper, NULL);
 	destroy_mutexes(dinner);
-	error_failure(NULL, dinner, 0);
+	free(dinner->philo);
+	free(dinner);
 }
 
 bool	has_died(t_global *dinner)

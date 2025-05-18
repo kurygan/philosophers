@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:08 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/05 21:59:28 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/06 23:49:25 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_global
 	pthread_t		grim_reaper;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
 	t_philo			*philo;
 }					t_global;
 
@@ -92,5 +91,6 @@ bool	start_simulation(t_global *dinner);
 void	stop_simulation(t_global *dinner);
 unsigned long	get_time(void);
 void	destroy_mutexes(t_global* dinner);
+void*	grim_reaper(void* arg);
 
 #endif

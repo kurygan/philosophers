@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:17:58 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/05 21:53:49 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/06 23:57:13 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ void	destroy_mutexes(t_global* dinner)
 		i++;
 	}
 	pthread_mutex_destroy(&dinner->dead_lock);
-	pthread_mutex_destroy(&dinner->meal_lock);
-	pthread_mutex_destroy(&dinner->dead_lock);
+	pthread_mutex_destroy(&dinner->write_lock);
 }
