@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:16:02 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/05 21:55:09 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:01:07 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int ac, char **av)
 {
-	t_global *dinner;
+	t_global	*dinner;
 
 	if (ac != 5 && ac != 6)
 		return (error_failure(ARG_ERROR, NULL, 1));

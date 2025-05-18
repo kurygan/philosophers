@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:17:58 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/06 23:57:13 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:02:08 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	*error_null(char *error_phrase, t_global *dinner)
 	return (NULL);
 }
 
-void	destroy_mutexes(t_global* dinner)
+void	destroy_mutexes(t_global *dinner)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < dinner->philo_nb)

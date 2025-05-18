@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:08:02 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/05/07 00:10:02 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:01:10 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	valid_args(int ac, char **av)
 {
 	if (ft_atoi(av[1]) == 0 || ft_atoi(av[2]) == 0 || ft_atoi(av[3]) == 0
-			|| ft_atoi(av[4]) == 0)
+		|| ft_atoi(av[4]) == 0)
 		return (false);
 	if (ac == 6)
 		if (ft_atoi(av[5]) == 0)
@@ -23,10 +23,10 @@ bool	valid_args(int ac, char **av)
 	return (true);
 }
 
-t_philo*	init_philo(t_global *dinner)
+t_philo	*init_philo(t_global *dinner)
 {
-	t_philo*		philo;
-	int	i;
+	t_philo	*philo;
+	int		i;
 
 	philo = malloc(sizeof(t_philo) * dinner->philo_nb);
 	if (!philo)
@@ -60,9 +60,10 @@ bool	init_global_mutex(t_global *dinner)
 	return (true);
 }
 
-t_global*	dinner_init(int ac, char **av)
+t_global	*dinner_init(int ac, char **av)
 {
 	t_global	*dinner;
+
 	dinner = malloc(sizeof(t_global));
 	if (!dinner)
 		return (error_null(MALLOC_ERR, NULL));

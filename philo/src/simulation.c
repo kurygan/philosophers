@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:15:15 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/07 00:25:05 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:01:24 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	start_simulation(t_global *dinner)
 {
-	int i;
+	int	i;
 
 	dinner->time_started = get_time() + (dinner->philo_nb * 50);
 	i = 0;

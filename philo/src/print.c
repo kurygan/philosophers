@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 08:31:46 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/06 00:11:44 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:01:41 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	get_status(t_philo *philo, t_status stage)
 	}
 	if (stage == DIED)
 		write_status(philo, "died");
-	else if(stage == EATING)
+	else if (stage == EATING)
 		write_status(philo, "is eating");
-	else if(stage == THINKING)
+	else if (stage == THINKING)
 		write_status(philo, "is thinking");
-	else if(stage == SLEEPING)
+	else if (stage == SLEEPING)
 		write_status(philo, "is sleeping");
-	else if(stage == GOT_FORK)
+	else if (stage == GOT_FORK)
 		write_status(philo, "has taken a fork");
 	pthread_mutex_unlock(&philo->dinner->write_lock);
 }

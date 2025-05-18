@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:10:12 by tylerlover9       #+#    #+#             */
-/*   Updated: 2025/05/06 01:36:26 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:00:51 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_atoi(char *str)
 {
-	long nbr;
+	long	nbr;
 
 	if (!str || !*str)
 		return (0);
@@ -34,7 +34,7 @@ int	ft_atoi(char *str)
 unsigned long	get_time(void)
 {
 	struct timeval	tv;
-	
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
@@ -42,7 +42,7 @@ unsigned long	get_time(void)
 void	better_sleep(t_global *dinner, unsigned int sleep_time)
 {
 	unsigned long	wake_up_t;
-	
+
 	wake_up_t = get_time() + sleep_time;
 	while (get_time() < wake_up_t)
 	{

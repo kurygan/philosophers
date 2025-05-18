@@ -6,7 +6,7 @@
 /*   By: mkettab <mkettab@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:23:46 by mkettab           #+#    #+#             */
-/*   Updated: 2025/05/07 00:20:04 by mkettab          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:02:29 by mkettab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	*lone_philo_r(t_philo *philo)
 
 void	eat_sleep_r(t_philo *philo)
 {
-	//take_fork_order(philo);
 	pthread_mutex_lock(&philo->r_fork);
 	get_status(philo, GOT_FORK);
 	pthread_mutex_lock(philo->l_fork);
@@ -43,11 +42,11 @@ void	eat_sleep_r(t_philo *philo)
 	get_status(philo, THINKING);
 }
 
-void*	r_philo(void* arg)
+void	*r_philo(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
-	philo = (t_philo*)arg;
+	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_meal = philo->dinner->time_started;
 	pthread_mutex_unlock(&philo->meal_lock);
@@ -55,15 +54,10 @@ void*	r_philo(void* arg)
 	if (philo->dinner->time_to_die == 0)
 		return (NULL);
 	if (philo->dinner->philo_nb == 1)
-		return(lone_philo_r(philo));
+		return (lone_philo_r(philo));
 	if (philo->id % 2)
 		usleep((philo->dinner->time_to_eat / 2) * 100);
-	//int i = 0;
-	while (!(philo->dinner->dead)){
-		//if (i == 0)
-		//	printf("%lu %d\n", get_time(), philo->id);
+	while (!(philo->dinner->dead))
 		eat_sleep_r(philo);
-		//i++;
-	}
 	return (NULL);
 }
